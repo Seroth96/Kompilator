@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Antlr4.Runtime;
 using Kompilator;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,27 +9,27 @@ namespace UnitTesting
     [TestClass]
     public class ParserTest
     {
-        //private CoombinedGrammarParser Setup(string text)
-        //{
-        //    AntlrInputStream inputStream = new AntlrInputStream(text);
-        //    CoombinedGrammarLexer speakLexer = new CoombinedGrammarLexer(inputStream);
-        //    CommonTokenStream commonTokenStream = new CommonTokenStream(speakLexer);
-        //    CoombinedGrammarParser speakParser = new CoombinedGrammarParser(commonTokenStream);
+        private CoombinedGrammarParser Setup(string text)
+        {
+            AntlrInputStream inputStream = new AntlrInputStream(text);
+            CoombinedGrammarLexer speakLexer = new CoombinedGrammarLexer(inputStream);
+            CommonTokenStream commonTokenStream = new CommonTokenStream(speakLexer);
+            CoombinedGrammarParser speakParser = new CoombinedGrammarParser(commonTokenStream);
 
-        //    return speakParser;
-        //}
+            return speakParser;
+        }
 
-        //[TestMethod]
-        //public void TestChat()
-        //{
-        //    CoombinedGrammarParser parser = Setup("john says \"hello\" \n michael says \"world\" \n");
+        [TestMethod]
+        public void TestPrint()
+        {
+            CoombinedGrammarParser parser = Setup("print \"ala ma kota\"");
 
-        //    CoombinedGrammarParser.ChatContext context = parser.chat();
-        //    SpeakVisitor visitor = new SpeakVisitor();
-        //    visitor.Visit(context);
+            CoombinedGrammarParser.StatContext context = parser.stat();
+            //SpeakVisitor visitor = new SpeakVisitor();
+            //visitor.Visit(context);
 
-        //    Assert.AreEqual(2, visitor.Lines.Count);
-        //}
+            Assert.AreEqual("ala ma kota", context.stop.Text);
+        }
 
         //[TestMethod]
         //public void TestLine()
